@@ -29,7 +29,7 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class WebTestCase extends BaseKernelTestCase
 {
-    protected static function getKernelClass()
+    protected static function getKernelClass(): string
     {
         require_once __DIR__.'/app/AppKernel.php';
 
