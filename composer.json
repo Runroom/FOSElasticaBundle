@@ -24,7 +24,7 @@
     "require-dev": {
         "doctrine/orm": "^2.7",
         "doctrine/doctrine-bundle": "^2.2",
-        "doctrine/persistence": "^2.5",
+        "doctrine/persistence": "^2.5|^3.1",
         "doctrine/phpcr-bundle": "^2.0|^2.5",
         "doctrine/phpcr-odm": "^1.5",
         "jackalope/jackalope-doctrine-dbal": "^1.3",
