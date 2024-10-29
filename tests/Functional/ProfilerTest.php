@@ -50,17 +50,19 @@ class ProfilerTest extends WebTestCase
         $this->twig = new Environment($twigLoaderFilesystem, ['debug' => true, 'strict_variables' => true]);
 
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $urlGenerator->method('generate')->willReturn('');
         $fragmentHandler = $this->createMock(FragmentHandler::class);
-        $fragmentHandler->method('render')->willReturn('');
+        $loader = $this->getMockBuilder(RuntimeLoaderInterface::class)->getMock();
 
-        $this->twig->addExtension(new CodeExtension('', '', ''));
+        if (\class_exists('Symfony\Bridge\Twig\Extension\CodeExtension')) {
+            $this->twig->addExtension(new CodeExtension('', '', ''));
+        }
         $this->twig->addExtension(new RoutingExtension($urlGenerator));
         $this->twig->addExtension(new HttpKernelExtension($fragmentHandler));
 
-        $loader = $this->getMockBuilder(RuntimeLoaderInterface::class)->getMock();
-
+        $urlGenerator->method('generate')->willReturn('');
+        $fragmentHandler->method('render')->willReturn('');
         $loader->method('load')->willReturn(new HttpKernelRuntime($fragmentHandler));
+
         $this->twig->addRuntimeLoader($loader);
     }
 
@@ -81,6 +83,7 @@ class ProfilerTest extends WebTestCase
             'request' => $request,
             'collector' => $this->collector,
             'queries' => $this->logger->getQueries(),
+            'profile_type' => 'request',
         ]);
 
         $output = str_replace("&quot;", '"', $output);

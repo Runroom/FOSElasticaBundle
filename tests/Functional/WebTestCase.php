@@ -23,13 +23,14 @@ namespace FOS\ElasticaBundle\Tests\Functional;
 use FOS\ElasticaBundle\Tests\Functional\app\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as BaseKernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /*
  * Based on https://github.com/symfony/symfony/blob/2.7/src/Symfony/Bundle/FrameworkBundle/Tests/Functional/WebTestCase.php
  */
 class WebTestCase extends BaseKernelTestCase
 {
-    protected static function getKernelClass()
+    protected static function getKernelClass(): string
     {
         require_once __DIR__.'/app/AppKernel.php';
 
@@ -55,7 +56,7 @@ class WebTestCase extends BaseKernelTestCase
         $fs->remove($dir);
     }
 
-    protected static function createKernel(array $options = [])
+    protected static function createKernel(array $options = []): KernelInterface
     {
         $class = self::getKernelClass();
 
@@ -66,14 +67,14 @@ class WebTestCase extends BaseKernelTestCase
         return new $class(
             static::getVarDir(),
             $options['test_case'],
-            isset($options['root_config']) ? $options['root_config'] : 'config.yml',
-            isset($options['environment']) ? $options['environment'] : strtolower(static::getVarDir().$options['test_case']),
-            isset($options['debug']) ? $options['debug'] : true
+            $options['root_config'] ?? 'config.yml',
+            $options['environment'] ?? strtolower(static::getVarDir().$options['test_case']),
+            $options['debug'] ?? true
         );
     }
 
     protected static function getVarDir()
     {
-        return substr(strrchr(get_called_class(), '\\'), 1);
+        return substr(strrchr(static::class, '\\'), 1);
     }
 }

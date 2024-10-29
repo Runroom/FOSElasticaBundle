@@ -69,8 +69,13 @@ class RepositoryManager implements RepositoryManagerInterface
     {
         $realEntityName = $entityName;
         if (false !== strpos($entityName, ':')) {
-            list($namespaceAlias, $simpleClassName) = explode(':', $entityName);
-            $realEntityName = $this->managerRegistry->getAliasNamespace($namespaceAlias).'\\'.$simpleClassName;
+            [$namespaceAlias, $simpleClassName] = explode(':', $entityName);
+            // @link https://github.com/doctrine/persistence/pull/204
+            if (\method_exists($this->managerRegistry, 'getAliasNamespace')) {
+                $realEntityName = $this->managerRegistry->getAliasNamespace($namespaceAlias).'\\'.$simpleClassName;
+            } else {
+                $realEntityName = $simpleClassName.'::class';
+            }
         }
 
         if (isset($this->entities[$realEntityName])) {

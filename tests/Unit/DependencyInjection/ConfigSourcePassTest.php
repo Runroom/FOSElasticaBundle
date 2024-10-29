@@ -1,90 +1,84 @@
 <?php
 
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <https://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Tests\Unit\DependencyInjection;
 
+use FOS\ElasticaBundle\Configuration\ConfigManager;
+use FOS\ElasticaBundle\Configuration\Source\ContainerSource;
 use FOS\ElasticaBundle\DependencyInjection\Compiler\ConfigSourcePass;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @internal
+ */
 class ConfigSourcePassTest extends TestCase
 {
-    use ProphecyTrait;
-
     /** @var ContainerBuilder */
     private $container;
 
     protected function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerBuilder::class);
+        $this->container = new ContainerBuilder();
     }
 
     public function testProcessWithoutConfigManager()
     {
-        $this->container
-            ->hasDefinition('fos_elastica.config_manager')
-            ->shouldBeCalled()
-            ->willReturn(false);
+        $configManagerDefinition = new Definition(ConfigManager::class);
+        $configManagerDefinition->addArgument([]);
+        $this->container->setDefinition('fos_elastica.config_manager', $configManagerDefinition);
+
+        $configManagerIndexTemplatesDefinition = new Definition(ConfigManager::class);
+        $configManagerIndexTemplatesDefinition->addArgument([]);
+        $this->container->setDefinition('fos_elastica.config_manager.index_templates', $configManagerIndexTemplatesDefinition);
 
         $pass = new ConfigSourcePass();
-        $pass->process($this->container->reveal());
+        $pass->process($this->container);
 
-        $this->container->getDefinition('fos_elastica.config_manager')->shouldNotBeCalled();
-        $this->container->getDefinition('fos_elastica.config_manager.index_templates')->shouldNotBeCalled();
+        $this->assertSame([], $this->container->getDefinition('fos_elastica.config_manager')->getArgument(0));
+        $this->assertSame([], $this->container->getDefinition('fos_elastica.config_manager.index_templates')->getArgument(0));
     }
 
     public function testProcessWithConfigManager()
     {
-        $this->container
-            ->hasDefinition('fos_elastica.config_manager')
-            ->shouldBeCalled()
-            ->willReturn(true);
+        $configManagerDefinition = new Definition(ConfigManager::class);
+        $configManagerDefinition->addArgument([]);
+        $this->container->setDefinition('fos_elastica.config_manager', $configManagerDefinition);
 
-        $this->container
-            ->findTaggedServiceIds('fos_elastica.config_source')
-            ->shouldBeCalled()
-            ->willReturn(
-                [
-                    'index_definition_id' => null,
-                    'index_template_definition_id' => null,
-                ]
-            );
+        $configManagerIndexTemplatesDefinition = new Definition(ConfigManager::class);
+        $configManagerIndexTemplatesDefinition->addArgument([]);
+        $this->container->setDefinition('fos_elastica.config_manager.index_templates', $configManagerIndexTemplatesDefinition);
 
-        $indexDefinition = $this->prophesize(Definition::class);
-        $indexDefinition->getTag('fos_elastica.config_source')
-            ->shouldBeCalled()
-            ->willReturn([]);
-        $this->container
-            ->findDefinition('index_definition_id')
-            ->shouldBeCalled()
-            ->willReturn($indexDefinition->reveal());
+        $indexDefinition = new Definition(ContainerSource::class);
+        $indexDefinition->addTag('fos_elastica.config_source');
 
+        $this->container->setDefinition('index_definition_id', $indexDefinition);
 
-        $indexTemplateDefinition = $this->prophesize(Definition::class);
-        $indexTemplateDefinition->getTag('fos_elastica.config_source')
-            ->shouldBeCalled()
-            ->willReturn([]);
-        $this->container
-            ->findDefinition('index_template_definition_id')
-            ->shouldBeCalled()
-            ->willReturn($indexTemplateDefinition->reveal());
+        $indexTemplateDefinition = new Definition(ContainerSource::class);
+        $indexTemplateDefinition->addTag('fos_elastica.config_source');
 
-        $configManagerDefinition = $this->prophesize(Definition::class);
-        $configManagerDefinition->replaceArgument(0, ['index_definition_id']);
-        $this->container
-            ->getDefinition('fos_elastica.config_manager')
-            ->shouldBeCalled()
-            ->willReturn($configManagerDefinition);
-
-        $templateConfigManagerDefinition = $this->prophesize(Definition::class);
-        $templateConfigManagerDefinition->replaceArgument(0, ['index_template_definition_id']);
-        $this->container
-            ->getDefinition('fos_elastica.config_manager.index_templates')
-            ->shouldBeCalled()
-            ->willReturn($templateConfigManagerDefinition);
+        $this->container->setDefinition('index_template_definition_id', $indexTemplateDefinition);
 
         $pass = new ConfigSourcePass();
-        $pass->process($this->container->reveal());
+        $pass->process($this->container);
+
+        $argument = $configManagerDefinition->getArgument(0);
+
+        $this->assertIsArray($argument);
+        $this->assertCount(2, $argument);
+        $this->assertInstanceOf(Reference::class, $argument[0]);
+        $this->assertSame('index_definition_id', $argument[0]->__toString());
+        $this->assertInstanceOf(Reference::class, $argument[1]);
+        $this->assertSame('index_template_definition_id', $argument[1]->__toString());
     }
 }
