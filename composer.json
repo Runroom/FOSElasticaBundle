@@ -22,7 +22,7 @@
         "ruflin/elastica": "^5.3.5|^6.1.2"
     },
     "require-dev": {
-        "doctrine/annotations": "2.0.2",
+        "doctrine/annotations": "^1.1|^2.0",
         "doctrine/orm": "^2.7",
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/persistence": "^2.5|^3.1",
