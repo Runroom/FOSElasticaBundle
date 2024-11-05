@@ -1,4 +1,4 @@
-FOSElasticaBundle
+FOSEladfsfdssticaBundle
 =================
 
 This bundle provides integration with [Elasticsearch](http://www.elasticsearch.org) and [Elastica](https://github.com/ruflin/Elastica) with
