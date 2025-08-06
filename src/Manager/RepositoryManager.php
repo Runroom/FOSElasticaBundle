@@ -13,7 +13,6 @@ namespace FOS\ElasticaBundle\Manager;
 
 use FOS\ElasticaBundle\Finder\FinderInterface;
 use FOS\ElasticaBundle\Repository;
-use RuntimeException;
 
 /**
  * @author Richard Miller <info@limethinking.co.uk>
@@ -64,7 +63,7 @@ class RepositoryManager implements RepositoryManagerInterface
         }
 
         if (!isset($this->types[$typeName])) {
-            throw new RuntimeException(sprintf('No search finder configured for %s', $typeName));
+            throw new \RuntimeException(sprintf('No search finder configured for %s', $typeName));
         }
 
         $repository = $this->createRepository($typeName);
@@ -74,8 +73,6 @@ class RepositoryManager implements RepositoryManagerInterface
     }
 
     /**
-     * @param $typeName
-     *
      * @return string
      */
     protected function getRepositoryName($typeName)
@@ -87,15 +84,10 @@ class RepositoryManager implements RepositoryManagerInterface
         return 'FOS\ElasticaBundle\Repository';
     }
 
-    /**
-     * @param $typeName
-     *
-     * @return mixed
-     */
     private function createRepository($typeName)
     {
         if (!class_exists($repositoryName = $this->getRepositoryName($typeName))) {
-            throw new RuntimeException(sprintf('%s repository for %s does not exist', $repositoryName, $typeName));
+            throw new \RuntimeException(sprintf('%s repository for %s does not exist', $repositoryName, $typeName));
         }
 
         return new $repositoryName($this->types[$typeName]['finder']);

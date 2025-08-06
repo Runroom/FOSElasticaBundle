@@ -13,8 +13,8 @@ namespace FOS\ElasticaBundle\Tests\Unit\Persister;
 
 use Elastica\Type;
 use FOS\ElasticaBundle\Persister\ObjectPersister;
-use FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer;
 use FOS\ElasticaBundle\Tests\Unit\Mocks\ObjectPersisterPOPO as POPO;
+use FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 

@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
 
 class ElasticaToModelTransformerTest extends TestCase
 {
-    const OBJECT_CLASS = \stdClass::class;
+    public const OBJECT_CLASS = \stdClass::class;
 
     /**
-     * @var \Doctrine\Persistence\ManagerRegistry|\PHPUnit_Framework_MockObject_MockObject
+     * @var ManagerRegistry|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $registry;
 
@@ -152,6 +152,6 @@ class ElasticaToModelTransformerTest extends TestCase
         $method = $class->getMethod('findByIdentifiers');
         $method->setAccessible(true);
 
-        $method->invokeArgs($transformer, [[1, 2, 3], /* $hydrate */true]);
+        $method->invokeArgs($transformer, [[1, 2, 3], /* $hydrate */ true]);
     }
 }

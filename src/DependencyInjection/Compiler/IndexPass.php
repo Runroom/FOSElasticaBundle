@@ -17,9 +17,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class IndexPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('fos_elastica.index_manager')) {

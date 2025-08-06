@@ -30,13 +30,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class WebTestCase extends BaseKernelTestCase
 {
-    protected static function getKernelClass(): string
-    {
-        require_once __DIR__.'/app/AppKernel.php';
-
-        return AppKernel::class;
-    }
-
     public static function setUpBeforeClass(): void
     {
         static::deleteTmpDir();
@@ -45,6 +38,13 @@ class WebTestCase extends BaseKernelTestCase
     public static function tearDownAfterClass(): void
     {
         static::deleteTmpDir();
+    }
+
+    protected static function getKernelClass(): string
+    {
+        require_once __DIR__.'/app/AppKernel.php';
+
+        return AppKernel::class;
     }
 
     protected static function deleteTmpDir()

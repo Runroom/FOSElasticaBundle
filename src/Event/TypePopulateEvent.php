@@ -16,7 +16,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 if (!class_exists(Event::class)) {
     /**
-     * Symfony 3.4
+     * Symfony 3.4.
      */
 
     /**
@@ -29,11 +29,11 @@ if (!class_exists(Event::class)) {
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TypePopulateEvent")
          */
-        const PRE_TYPE_POPULATE = 'elastica.index.type_pre_populate';
+        public const PRE_TYPE_POPULATE = 'elastica.index.type_pre_populate';
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TypePopulateEvent")
          */
-        const POST_TYPE_POPULATE = 'elastica.index.type_post_populate';
+        public const POST_TYPE_POPULATE = 'elastica.index.type_post_populate';
         /**
          * @var string
          */
@@ -62,7 +62,7 @@ if (!class_exists(Event::class)) {
     }
 } else {
     /**
-     * Symfony >= 4.3
+     * Symfony >= 4.3.
      */
 
     /**
@@ -75,12 +75,12 @@ if (!class_exists(Event::class)) {
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TypePopulateEvent")
          */
-        const PRE_TYPE_POPULATE = 'elastica.index.type_pre_populate';
+        public const PRE_TYPE_POPULATE = 'elastica.index.type_pre_populate';
 
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TypePopulateEvent")
          */
-        const POST_TYPE_POPULATE = 'elastica.index.type_post_populate';
+        public const POST_TYPE_POPULATE = 'elastica.index.type_post_populate';
 
         /**
          * @var string

@@ -12,21 +12,11 @@
 namespace FOS\ElasticaBundle\Tests\Unit\Provider;
 
 use FOS\ElasticaBundle\Provider\PagerProviderRegistry;
-use Symfony\Component\DependencyInjection\Container;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\Container;
 
 class PagerProviderRegistryTest extends TestCase
 {
-    protected function mockPagerProviderRegistry(array $providers, $service = null)
-    {
-        $container = new Container();
-        $container->set('the_service_id', $service);
-
-        $registry = new PagerProviderRegistry($providers);
-        $registry->setContainer($container);
-        return $registry;
-    }
-
     public function testGetAllProviders()
     {
         $providers = [
@@ -77,5 +67,16 @@ class PagerProviderRegistryTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('No provider was registered for index "index" and type "type".');
         $registry->getProvider('index', 'type');
+    }
+
+    protected function mockPagerProviderRegistry(array $providers, $service = null)
+    {
+        $container = new Container();
+        $container->set('the_service_id', $service);
+
+        $registry = new PagerProviderRegistry($providers);
+        $registry->setContainer($container);
+
+        return $registry;
     }
 }

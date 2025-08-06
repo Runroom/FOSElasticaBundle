@@ -24,9 +24,6 @@ class PagerProviderRegistry implements ContainerAwareInterface
     /** @var array */
     private $providers = [];
 
-    /**
-     * @param array $providers
-     */
     public function __construct(array $providers)
     {
         $this->providers = $providers;

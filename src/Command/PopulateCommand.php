@@ -178,10 +178,9 @@ class PopulateCommand extends Command
     /**
      * Recreates an index, populates its types, and refreshes the index.
      *
-     * @param OutputInterface $output
-     * @param string          $index
-     * @param bool            $reset
-     * @param array           $options
+     * @param string $index
+     * @param bool   $reset
+     * @param array  $options
      */
     private function populateIndex(OutputInterface $output, $index, $reset, $options)
     {
@@ -206,11 +205,10 @@ class PopulateCommand extends Command
     /**
      * Deletes/remaps an index type, populates it, and refreshes the index.
      *
-     * @param OutputInterface $output
-     * @param string          $index
-     * @param string          $type
-     * @param bool            $reset
-     * @param array           $options
+     * @param string $index
+     * @param string $type
+     * @param bool   $reset
+     * @param array  $options
      */
     private function populateIndexType(OutputInterface $output, $index, $type, $reset, $options)
     {
@@ -227,7 +225,7 @@ class PopulateCommand extends Command
 
         $this->dispatcher->addListener(
             Events::ON_EXCEPTION,
-            function(OnExceptionEvent $event) use ($loggerClosure) {
+            function (OnExceptionEvent $event) use ($loggerClosure) {
                 $loggerClosure(
                     count($event->getObjects()),
                     $event->getPager()->getNbResults(),
@@ -238,20 +236,20 @@ class PopulateCommand extends Command
 
         $this->dispatcher->addListener(
             Events::POST_INSERT_OBJECTS,
-            function(PostInsertObjectsEvent $event) use ($loggerClosure) {
+            function (PostInsertObjectsEvent $event) use ($loggerClosure) {
                 $loggerClosure(count($event->getObjects()), $event->getPager()->getNbResults());
             }
         );
 
         $this->dispatcher->addListener(
             Events::POST_ASYNC_INSERT_OBJECTS,
-            function(PostAsyncInsertObjectsEvent $event) use ($loggerClosure) {
+            function (PostAsyncInsertObjectsEvent $event) use ($loggerClosure) {
                 $loggerClosure($event->getObjectsCount(), $event->getPager()->getNbResults(), $event->getErrorMessage());
             }
         );
 
         if ($options['ignore_errors']) {
-            $this->dispatcher->addListener(Events::ON_EXCEPTION, function(OnExceptionEvent $event) {
+            $this->dispatcher->addListener(Events::ON_EXCEPTION, function (OnExceptionEvent $event) {
                 if ($event->getException() instanceof BulkResponseException) {
                     $event->setIgnore(true);
                 }
@@ -275,14 +273,13 @@ class PopulateCommand extends Command
     /**
      * Refreshes an index.
      *
-     * @param OutputInterface $output
-     * @param string          $index
+     * @param string $index
      */
     private function refreshIndex(OutputInterface $output, $index)
     {
         $output->writeln(sprintf('<info>Refreshing</info> <comment>%s</comment>', $index));
         $this->indexManager->getIndex($index)->refresh();
-        $output->writeln("");
+        $output->writeln('');
     }
 
     private function dispatch($event, $eventName): void

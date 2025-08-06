@@ -23,11 +23,10 @@ final class ProgressClosureBuilder
      * Builds a loggerClosure to be called from inside the Provider to update the command
      * line.
      *
-     * @param OutputInterface $output
-     * @param string          $action
-     * @param string          $index
-     * @param string          $type
-     * @param int             $offset
+     * @param string $action
+     * @param string $index
+     * @param string $type
+     * @param int    $offset
      *
      * @return callable
      */

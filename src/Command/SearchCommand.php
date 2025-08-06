@@ -74,7 +74,6 @@ class SearchCommand extends Command
     }
 
     /**
-     * @param Result $result
      * @param string $showField
      * @param string $showSource
      * @param string $showId

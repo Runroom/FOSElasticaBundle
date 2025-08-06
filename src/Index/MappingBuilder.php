@@ -20,8 +20,6 @@ class MappingBuilder
     /**
      * Builds mappings for an entire index.
      *
-     * @param IndexConfigInterface $indexConfig
-     *
      * @return array
      */
     public function buildIndexMapping(IndexConfigInterface $indexConfig)
@@ -48,8 +46,6 @@ class MappingBuilder
     /**
      * Builds mappings for an entire index template.
      *
-     * @param IndexTemplateConfig $indexTemplateConfig
-     *
      * @return array
      */
     public function buildIndexTemplateMapping(IndexTemplateConfig $indexTemplateConfig)
@@ -62,8 +58,6 @@ class MappingBuilder
 
     /**
      * Builds mappings for a single type.
-     *
-     * @param TypeConfig $typeConfig
      *
      * @return array
      */
@@ -117,8 +111,6 @@ class MappingBuilder
     /**
      * Fixes any properties and applies basic defaults for any field that does not have
      * required options.
-     *
-     * @param $properties
      */
     private function fixProperties(&$properties)
     {

@@ -25,10 +25,6 @@ class IndexManager
      */
     private $indexes;
 
-    /**
-     * @param array $indexes
-     * @param Index $defaultIndex
-     */
     public function __construct(array $indexes, Index $defaultIndex)
     {
         $this->defaultIndex = $defaultIndex;

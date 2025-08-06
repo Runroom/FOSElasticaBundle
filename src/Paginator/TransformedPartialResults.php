@@ -21,10 +21,6 @@ class TransformedPartialResults extends RawPartialResults
 {
     protected $transformer;
 
-    /**
-     * @param ResultSet                                                           $resultSet
-     * @param \FOS\ElasticaBundle\Transformer\ElasticaToModelTransformerInterface $transformer
-     */
     public function __construct(ResultSet $resultSet, ElasticaToModelTransformerInterface $transformer)
     {
         parent::__construct($resultSet);
@@ -32,9 +28,6 @@ class TransformedPartialResults extends RawPartialResults
         $this->transformer = $transformer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray()
     {
         return $this->transformer->transform($this->resultSet->getResults());

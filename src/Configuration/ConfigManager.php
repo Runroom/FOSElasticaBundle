@@ -45,17 +45,11 @@ class ConfigManager implements ManagerInterface
         return $this->indexes[$indexName];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIndexNames()
     {
         return array_keys($this->indexes);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTypeConfiguration($indexName, $typeName)
     {
         $index = $this->getIndexConfiguration($indexName);

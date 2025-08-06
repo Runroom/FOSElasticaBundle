@@ -13,7 +13,6 @@ namespace FOS\ElasticaBundle\Paginator;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\PagerfantaInterface;
-use Traversable;
 
 if (!method_exists(PagerfantaInterface::class, 'getAdapter')) {
     class_alias(LegacyFantaPaginatorAdapterTrait::class, FantaPaginatorAdapterTrait::class);
@@ -25,9 +24,6 @@ class FantaPaginatorAdapter implements AdapterInterface
 
     private $adapter;
 
-    /**
-     * @param \FOS\ElasticaBundle\Paginator\PaginatorAdapterInterface $adapter
-     */
     public function __construct(PaginatorAdapterInterface $adapter)
     {
         $this->adapter = $adapter;
@@ -35,8 +31,6 @@ class FantaPaginatorAdapter implements AdapterInterface
 
     /**
      * Returns Aggregations.
-     *
-     * @return mixed
      *
      * @api
      */
@@ -48,8 +42,6 @@ class FantaPaginatorAdapter implements AdapterInterface
     /**
      * Returns Suggestions.
      *
-     * @return mixed
-     *
      * @api
      */
     public function getSuggests()
@@ -57,9 +49,6 @@ class FantaPaginatorAdapter implements AdapterInterface
         return $this->adapter->getSuggests();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMaxScore()
     {
         return $this->adapter->getMaxScore();

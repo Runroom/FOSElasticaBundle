@@ -37,7 +37,6 @@ class IndexConfig implements IndexConfigInterface
      *
      * @param string       $name
      * @param TypeConfig[] $types
-     * @param array        $config
      */
     public function __construct($name, array $types, array $config)
     {

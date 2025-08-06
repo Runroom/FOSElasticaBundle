@@ -30,7 +30,6 @@ interface PaginatedFinderInterface extends FinderInterface
     /**
      * Creates a paginator adapter for this query.
      *
-     * @param mixed $query
      * @param array $options
      *
      * @return PaginatorAdapterInterface
@@ -40,8 +39,6 @@ interface PaginatedFinderInterface extends FinderInterface
     /**
      * Creates a hybrid paginator adapter for this query.
      *
-     * @param mixed $query
-     *
      * @return PaginatorAdapterInterface
      */
     public function createHybridPaginatorAdapter($query);
@@ -49,7 +46,6 @@ interface PaginatedFinderInterface extends FinderInterface
     /**
      * Creates a raw paginator adapter for this query.
      *
-     * @param mixed $query
      * @param array $options
      *
      * @return PaginatorAdapterInterface

@@ -18,7 +18,7 @@ final class PagerPersisterRegistry implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    /** 
+    /**
      * @var string[]
      */
     private $nameToServiceIdMap = [];
@@ -34,9 +34,9 @@ final class PagerPersisterRegistry implements ContainerAwareInterface
     /**
      * @param string $name
      *
-     * @throws \InvalidArgumentException if no pager persister was registered for the given name
-     *
      * @return PagerPersisterInterface
+     *
+     * @throws \InvalidArgumentException if no pager persister was registered for the given name
      */
     public function getPagerPersister($name)
     {
@@ -49,12 +49,7 @@ final class PagerPersisterRegistry implements ContainerAwareInterface
         $pagerPersister = $this->container->get($serviceId);
 
         if (!$pagerPersister instanceof PagerPersisterInterface) {
-            throw new \LogicException(sprintf(
-                'The pager provider service "%s" must implement "%s" interface but it is an instance of "%s" class.',
-                $serviceId,
-                PagerPersisterInterface::class,
-                get_class($pagerPersister)
-            ));
+            throw new \LogicException(sprintf('The pager provider service "%s" must implement "%s" interface but it is an instance of "%s" class.', $serviceId, PagerPersisterInterface::class, get_class($pagerPersister)));
         }
 
         return $pagerPersister;

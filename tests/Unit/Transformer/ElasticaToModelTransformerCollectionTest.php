@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 class ElasticaToModelTransformerCollectionTest extends TestCase
 {
     /**
-     * @var \FOS\ElasticaBundle\Transformer\ElasticaToModelTransformerCollection
+     * @var ElasticaToModelTransformerCollection
      */
     protected $collection;
     protected $transformers = [];
@@ -195,9 +195,6 @@ class POPO
     public $id;
     public $data;
 
-    /**
-     * @param mixed $id
-     */
     public function __construct($id, $data)
     {
         $this->data = $data;

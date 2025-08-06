@@ -1,8 +1,9 @@
 <?php
+
 /*
- * This file is part of the OpCart software.
+ * This file is part of the FOSElasticaBundle package.
  *
- * (c) 2015, OpticsPlanet, Inc
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +12,7 @@
 namespace FOS\ElasticaBundle\Configuration;
 
 /**
- * Index configuration trait class
+ * Index configuration trait class.
  *
  * @author Dmitry Balabka <dmitry.balabka@intexsys.lv>
  */
@@ -87,7 +88,7 @@ trait IndexConfigTrait
     }
 
     /**
-     * @return \FOS\ElasticaBundle\Configuration\TypeConfig[]
+     * @return TypeConfig[]
      */
     public function getTypes()
     {

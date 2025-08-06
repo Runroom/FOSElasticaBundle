@@ -1,4 +1,14 @@
 <?php
+
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Persister\Event;
 
 use FOS\ElasticaBundle\Event\AbstractEvent;
@@ -38,10 +48,10 @@ final class OnExceptionEvent extends AbstractEvent implements PersistEvent
     private $ignore;
 
     public function __construct(
-        PagerInterface $pager, 
-        ObjectPersisterInterface $objectPersister, 
-        \Exception $exception, 
-        array $objects, 
+        PagerInterface $pager,
+        ObjectPersisterInterface $objectPersister,
+        \Exception $exception,
+        array $objects,
         array $options
     ) {
         $this->pager = $pager;
@@ -85,9 +95,6 @@ final class OnExceptionEvent extends AbstractEvent implements PersistEvent
         return $this->exception;
     }
 
-    /**
-     * @param \Exception $exception
-     */
     public function setException(\Exception $exception)
     {
         $this->exception = $exception;
@@ -106,7 +113,7 @@ final class OnExceptionEvent extends AbstractEvent implements PersistEvent
      */
     public function setIgnore($ignore)
     {
-        $this->ignore = !!$ignore;
+        $this->ignore = (bool) $ignore;
     }
 
     /**

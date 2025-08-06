@@ -33,10 +33,7 @@ class ObjectPersister implements ObjectPersisterInterface
     private $options;
 
     /**
-     * @param Type                                $type
-     * @param ModelToElasticaTransformerInterface $transformer
-     * @param string                              $objectClass
-     * @param array                               $fields
+     * @param string $objectClass
      */
     public function __construct(Type $type, ModelToElasticaTransformerInterface $transformer, $objectClass, array $fields, array $options = [])
     {
@@ -47,57 +44,36 @@ class ObjectPersister implements ObjectPersisterInterface
         $this->options = $options;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handlesObject($object)
     {
         return $object instanceof $this->objectClass;
     }
 
-    /**
-     * @param LoggerInterface $logger
-     */
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function insertOne($object)
     {
         $this->insertMany([$object]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function replaceOne($object)
     {
         $this->replaceMany([$object]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function deleteOne($object)
     {
         $this->deleteMany([$object]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function deleteById($id, $routing = false)
     {
         $this->deleteManyByIdentifiers([$id], $routing);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function insertMany(array $objects)
     {
         $documents = [];
@@ -111,9 +87,6 @@ class ObjectPersister implements ObjectPersisterInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function replaceMany(array $objects)
     {
         $documents = [];
@@ -130,9 +103,6 @@ class ObjectPersister implements ObjectPersisterInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function deleteMany(array $objects)
     {
         $documents = [];
@@ -146,9 +116,6 @@ class ObjectPersister implements ObjectPersisterInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function deleteManyByIdentifiers(array $identifiers, $routing = false)
     {
         try {
@@ -172,8 +139,6 @@ class ObjectPersister implements ObjectPersisterInterface
 
     /**
      * Log exception if logger defined for persister belonging to the current listener, otherwise re-throw.
-     *
-     * @param BulkException $e
      *
      * @throws BulkException
      */

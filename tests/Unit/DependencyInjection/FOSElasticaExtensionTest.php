@@ -12,10 +12,10 @@
 namespace FOS\ElasticaBundle\Tests\Unit\DependencyInjection;
 
 use FOS\ElasticaBundle\DependencyInjection\FOSElasticaExtension;
-use FOS\ElasticaBundle\Doctrine\RegisterListenersService;
 use FOS\ElasticaBundle\Doctrine\MongoDBPagerProvider;
 use FOS\ElasticaBundle\Doctrine\ORMPagerProvider;
 use FOS\ElasticaBundle\Doctrine\PHPCRPagerProvider;
+use FOS\ElasticaBundle\Doctrine\RegisterListenersService;
 use FOS\ElasticaBundle\Persister\InPlacePagerPersister;
 use FOS\ElasticaBundle\Persister\Listener\FilterObjectsListener;
 use FOS\ElasticaBundle\Persister\PagerPersisterRegistry;
@@ -87,12 +87,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_provider.acme_index.acme_type'));
@@ -111,7 +111,7 @@ class FOSElasticaExtensionTest extends TestCase
         $this->assertSame([
             'fos_elastica.pager_provider' => [
                 ['index' => 'acme_index', 'type' => 'acme_type'],
-            ]
+            ],
         ], $definition->getTags());
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_provider.prototype.orm'));
@@ -147,12 +147,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_provider.acme_index.acme_type'));
@@ -171,7 +171,7 @@ class FOSElasticaExtensionTest extends TestCase
         $this->assertSame([
             'fos_elastica.pager_provider' => [
                 ['index' => 'acme_index', 'type' => 'acme_type'],
-            ]
+            ],
         ], $definition->getTags());
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_provider.prototype.mongodb'));
@@ -207,12 +207,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_provider.acme_index.acme_type'));
@@ -231,7 +231,7 @@ class FOSElasticaExtensionTest extends TestCase
         $this->assertSame([
             'fos_elastica.pager_provider' => [
                 ['index' => 'acme_index', 'type' => 'acme_type'],
-            ]
+            ],
         ], $definition->getTags());
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_provider.prototype.phpcr'));
@@ -263,12 +263,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.in_place_pager_persister'));
@@ -283,7 +283,7 @@ class FOSElasticaExtensionTest extends TestCase
         $this->assertSame('event_dispatcher', (string) $definition->getArgument(1));
 
         $this->assertSame([
-            'fos_elastica.pager_persister' => [['persisterName' => 'in_place']]
+            'fos_elastica.pager_persister' => [['persisterName' => 'in_place']],
         ], $definition->getTags());
     }
 
@@ -309,12 +309,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.doctrine.register_listeners'));
@@ -348,12 +348,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.filter_objects_listener'));
@@ -389,12 +389,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.pager_persister_registry'));
@@ -426,12 +426,12 @@ class FOSElasticaExtensionTest extends TestCase
                                     'provider' => null,
                                     'listener' => null,
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertTrue($container->hasDefinition('fos_elastica.listener.acme_index.acme_type'));
@@ -461,12 +461,12 @@ class FOSElasticaExtensionTest extends TestCase
                                         'enabled' => false,
                                     ],
                                     'finder' => null,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ], $container);
 
         $this->assertFalse($container->hasDefinition('fos_elastica.listener.acme_index.acme_type'));

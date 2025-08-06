@@ -28,17 +28,12 @@ class PopulateListener
 
     /**
      * PopulateListener constructor.
-     *
-     * @param Resetter $resetter
      */
     public function __construct(Resetter $resetter)
     {
         $this->resetter = $resetter;
     }
 
-    /**
-     * @param IndexPopulateEvent $event
-     */
     public function onPostIndexPopulate(IndexPopulateEvent $event)
     {
         if (!$event->isReset()) {

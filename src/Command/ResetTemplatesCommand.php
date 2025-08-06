@@ -36,9 +36,6 @@ final class ResetTemplatesCommand extends Command
         $this->resetter = $resetter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         $this
@@ -53,16 +50,13 @@ final class ResetTemplatesCommand extends Command
                 'force-delete',
                 null,
                 InputOption::VALUE_NONE,
-                'Delete all indexes that matches index templates patterns. ' .
+                'Delete all indexes that matches index templates patterns. '.
                 'Aware that pattern may match various indexes.'
             )
             ->setDescription('Reset search indexes templates')
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $indexTemplate = $input->getOption('index');

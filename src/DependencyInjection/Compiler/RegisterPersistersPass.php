@@ -17,9 +17,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class RegisterPersistersPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('fos_elastica.persister_registry')) {
@@ -40,13 +37,7 @@ final class RegisterPersistersPass implements CompilerPassInterface
                 $type = $attribute['type'];
 
                 if (isset($registeredPersisters[$index][$type])) {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Cannot register persister "%s". The persister "%s" has been registered for same index "%s" and type "%s"',
-                        $id,
-                        $registeredPersisters[$index][$type],
-                        $index,
-                        $type
-                    ));
+                    throw new \InvalidArgumentException(sprintf('Cannot register persister "%s". The persister "%s" has been registered for same index "%s" and type "%s"', $id, $registeredPersisters[$index][$type], $index, $type));
                 }
 
                 $persisterDef = $container->getDefinition($id);
@@ -68,9 +59,6 @@ final class RegisterPersistersPass implements CompilerPassInterface
     }
 
     /**
-     * @param $persisterId
-     * @param $persisterClass
-     *
      * @throws \InvalidArgumentException if persister service does not implement ObjectPersisterInterface
      */
     private function assertClassImplementsPersisterInterface($persisterId, $persisterClass)
@@ -78,12 +66,7 @@ final class RegisterPersistersPass implements CompilerPassInterface
         $rc = new \ReflectionClass($persisterClass);
 
         if (!$rc->implementsInterface(ObjectPersisterInterface::class)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Elastica persister "%s" with class "%s" must implement "%s".',
-                $persisterId,
-                $persisterClass,
-                ObjectPersisterInterface::class
-            ));
+            throw new \InvalidArgumentException(sprintf('Elastica persister "%s" with class "%s" must implement "%s".', $persisterId, $persisterClass, ObjectPersisterInterface::class));
         }
     }
 }

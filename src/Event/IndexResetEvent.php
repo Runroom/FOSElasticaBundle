@@ -16,7 +16,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 if (!class_exists(Event::class)) {
     /**
-     * Symfony 3.4
+     * Symfony 3.4.
      */
 
     /**
@@ -29,11 +29,11 @@ if (!class_exists(Event::class)) {
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\IndexResetEvent")
          */
-        const PRE_INDEX_RESET = 'elastica.index.pre_reset';
+        public const PRE_INDEX_RESET = 'elastica.index.pre_reset';
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\IndexResetEvent")
          */
-        const POST_INDEX_RESET = 'elastica.index.post_reset';
+        public const POST_INDEX_RESET = 'elastica.index.post_reset';
         /**
          * @var bool
          */
@@ -82,7 +82,7 @@ if (!class_exists(Event::class)) {
     }
 } else {
     /**
-     * Symfony >= 4.3
+     * Symfony >= 4.3.
      */
 
     /**
@@ -95,12 +95,12 @@ if (!class_exists(Event::class)) {
         /**
          * @Event("FOS\ElasticaBundle\Event\IndexResetEvent")
          */
-        const PRE_INDEX_RESET = 'elastica.index.pre_reset';
+        public const PRE_INDEX_RESET = 'elastica.index.pre_reset';
 
         /**
          * @Event("FOS\ElasticaBundle\Event\IndexResetEvent")
          */
-        const POST_INDEX_RESET = 'elastica.index.post_reset';
+        public const POST_INDEX_RESET = 'elastica.index.post_reset';
 
         /**
          * @var bool

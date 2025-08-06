@@ -16,7 +16,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 if (!class_exists(Event::class)) {
     /**
-     * Symfony 3.4
+     * Symfony 3.4.
      */
 
     /**
@@ -29,11 +29,11 @@ if (!class_exists(Event::class)) {
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TypeResetEvent")
          */
-        const PRE_TYPE_RESET = 'elastica.index.type_pre_reset';
+        public const PRE_TYPE_RESET = 'elastica.index.type_pre_reset';
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TypeResetEvent")
          */
-        const POST_TYPE_RESET = 'elastica.index.type_post_reset';
+        public const POST_TYPE_RESET = 'elastica.index.type_post_reset';
         /**
          * @var string
          */
@@ -60,7 +60,7 @@ if (!class_exists(Event::class)) {
     }
 } else {
     /**
-     * Symfony >= 4.3
+     * Symfony >= 4.3.
      */
 
     /**
@@ -73,11 +73,11 @@ if (!class_exists(Event::class)) {
         /**
          * @Event("FOS\ElasticaBundle\Event\TypeResetEvent")
          */
-        const PRE_TYPE_RESET = 'elastica.index.type_pre_reset';
+        public const PRE_TYPE_RESET = 'elastica.index.type_pre_reset';
         /**
          * @Event("FOS\ElasticaBundle\Event\TypeResetEvent")
          */
-        const POST_TYPE_RESET = 'elastica.index.type_post_reset';
+        public const POST_TYPE_RESET = 'elastica.index.type_post_reset';
         /**
          * @var string
          */
