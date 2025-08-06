@@ -11,6 +11,8 @@
 
 namespace FOS\ElasticaBundle\Tests\Unit\Doctrine\ORM;
 
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
@@ -122,7 +124,12 @@ class ElasticaToModelTransformerTest extends TestCase
      */
     public function testUsesHintsConfigurationIfGiven()
     {
-        $query = $this->createMock(Query::class);
+        $query = class_exists(ClassMetadataInfo::class) ?
+            $this->getMockBuilder(AbstractQuery::class)
+            ->setMethods(['setHint', 'execute', 'setHydrationMode'])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass()
+            : $this->createMock(Query::class);
         $query->expects($this->any())->method('setHydrationMode')->willReturnSelf();
         $query->expects($this->once())  //  check if the hint is set
             ->method('setHint')
