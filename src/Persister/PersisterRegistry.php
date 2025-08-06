@@ -18,14 +18,11 @@ class PersisterRegistry implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    /** 
-     * @var array 
+    /**
+     * @var array
      */
     private $persisters = [];
 
-    /**
-     * @param array $persisters
-     */
     public function __construct(array $persisters)
     {
         $this->persisters = $persisters;

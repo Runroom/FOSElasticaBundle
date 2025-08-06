@@ -35,19 +35,12 @@ class TransformedFinder implements PaginatedFinderInterface
      */
     protected $transformer;
 
-    /**
-     * @param SearchableInterface                 $searchable
-     * @param ElasticaToModelTransformerInterface $transformer
-     */
     public function __construct(SearchableInterface $searchable, ElasticaToModelTransformerInterface $transformer)
     {
         $this->searchable = $searchable;
         $this->transformer = $transformer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function find($query, $limit = null, $options = [])
     {
         $results = $this->search($query, $limit, $options);
@@ -56,8 +49,7 @@ class TransformedFinder implements PaginatedFinderInterface
     }
 
     /**
-     * @param $query
-     * @param null|int $limit
+     * @param int|null $limit
      * @param array    $options
      *
      * @return array
@@ -69,9 +61,6 @@ class TransformedFinder implements PaginatedFinderInterface
         return $this->transformer->hybridTransform($results);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findPaginated($query, $options = [])
     {
         $queryObject = Query::create($query);
@@ -80,9 +69,6 @@ class TransformedFinder implements PaginatedFinderInterface
         return new Pagerfanta(new FantaPaginatorAdapter($paginatorAdapter));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createPaginatorAdapter($query, $options = [])
     {
         $query = Query::create($query);
@@ -90,9 +76,6 @@ class TransformedFinder implements PaginatedFinderInterface
         return new TransformedPaginatorAdapter($this->searchable, $query, $options, $this->transformer);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createHybridPaginatorAdapter($query)
     {
         $query = Query::create($query);
@@ -100,9 +83,6 @@ class TransformedFinder implements PaginatedFinderInterface
         return new HybridPaginatorAdapter($this->searchable, $query, $this->transformer);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createRawPaginatorAdapter($query, $options = [])
     {
         $query = Query::create($query);
@@ -111,8 +91,7 @@ class TransformedFinder implements PaginatedFinderInterface
     }
 
     /**
-     * @param $query
-     * @param null|int $limit
+     * @param int|null $limit
      * @param array    $options
      *
      * @return array

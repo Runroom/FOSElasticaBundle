@@ -96,7 +96,7 @@ class MappingBuilderTest extends TestCase
         $config = new IndexTemplateConfig(
             'some_template',
             [
-                $this->typeConfig
+                $this->typeConfig,
             ],
             ['template' => 'index_template_*']
         );
@@ -104,8 +104,8 @@ class MappingBuilderTest extends TestCase
             [
                 'template' => 'index_template_*',
                 'mappings' => [
-                    'typename' => $this->typeMapping
-                ]
+                    'typename' => $this->typeMapping,
+                ],
             ],
             $this->builder->buildIndexTemplateMapping($config)
         );

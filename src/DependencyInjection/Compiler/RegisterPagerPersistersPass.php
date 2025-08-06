@@ -17,9 +17,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class RegisterPagerPersistersPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('fos_elastica.pager_persister_registry')) {
@@ -38,12 +35,7 @@ final class RegisterPagerPersistersPass implements CompilerPassInterface
                 $persisterName = $attribute['persisterName'];
 
                 if (isset($nameToServiceIdMap[$persisterName])) {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Cannot register pager persister "%s". The pager persister "%s" has been registered for same name "%s"',
-                        $id,
-                        $nameToServiceIdMap[$persisterName],
-                        $persisterName
-                    ));
+                    throw new \InvalidArgumentException(sprintf('Cannot register pager persister "%s". The pager persister "%s" has been registered for same name "%s"', $id, $nameToServiceIdMap[$persisterName], $persisterName));
                 }
 
                 $persisterDef = $container->getDefinition($id);
@@ -65,9 +57,6 @@ final class RegisterPagerPersistersPass implements CompilerPassInterface
     }
 
     /**
-     * @param $persisterId
-     * @param $persisterClass
-     *
      * @throws \InvalidArgumentException if persister service does not implement ObjectPersisterInterface
      */
     private function assertClassImplementsPagerPersisterInterface($persisterId, $persisterClass)
@@ -75,12 +64,7 @@ final class RegisterPagerPersistersPass implements CompilerPassInterface
         $rc = new \ReflectionClass($persisterClass);
 
         if (!$rc->implementsInterface(PagerPersisterInterface::class)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Elastica pager persister "%s" with class "%s" must implement "%s".',
-                $persisterId,
-                $persisterClass,
-                PagerPersisterInterface::class
-            ));
+            throw new \InvalidArgumentException(sprintf('Elastica pager persister "%s" with class "%s" must implement "%s".', $persisterId, $persisterClass, PagerPersisterInterface::class));
         }
     }
 }

@@ -18,7 +18,6 @@ interface IndexableInterface
      *
      * @param string $indexName
      * @param string $typeName
-     * @param mixed  $object
      *
      * @return bool
      */

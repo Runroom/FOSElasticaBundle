@@ -48,7 +48,6 @@ class Indexable implements IndexableInterface
      *
      * @param string $indexName
      * @param string $typeName
-     * @param mixed  $object
      *
      * @return bool
      */
@@ -103,7 +102,6 @@ class Indexable implements IndexableInterface
      * Processes a string expression into an Expression.
      *
      * @param string $type
-     * @param mixed  $object
      * @param string $callback
      *
      * @return Expression
@@ -123,10 +121,7 @@ class Indexable implements IndexableInterface
 
             return $callback;
         } catch (SyntaxError $e) {
-            throw new \InvalidArgumentException(sprintf(
-                'Callback for type "%s" is an invalid expression',
-                $type
-            ), $e->getCode(), $e);
+            throw new \InvalidArgumentException(sprintf('Callback for type "%s" is an invalid expression', $type), $e->getCode(), $e);
         }
     }
 
@@ -135,8 +130,6 @@ class Indexable implements IndexableInterface
      *
      * @param string $type
      * @param object $object
-     *
-     * @return mixed
      */
     private function getCallback($type, $object)
     {
@@ -164,8 +157,6 @@ class Indexable implements IndexableInterface
     /**
      * Returns the variable name to be used to access the object when using the ExpressionLanguage
      * component to parse and evaluate an expression.
-     *
-     * @param mixed $object
      *
      * @return string
      */

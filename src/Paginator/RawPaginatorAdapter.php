@@ -14,7 +14,6 @@ namespace FOS\ElasticaBundle\Paginator;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
-use InvalidArgumentException;
 
 /**
  * Allows pagination of Elastica\Query. Does not map results.
@@ -61,7 +60,6 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
      *
      * @param SearchableInterface $searchable the object to search in
      * @param Query               $query      the query to search
-     * @param array               $options
      */
     public function __construct(SearchableInterface $searchable, Query $query, array $options = [])
     {
@@ -70,9 +68,6 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
         $this->options = $options;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResults($offset, $itemCountPerPage)
     {
         return new RawPartialResults($this->getElasticaResults($offset, $itemCountPerPage));
@@ -98,9 +93,6 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
             : $this->totalHits;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAggregations()
     {
         if (!isset($this->aggregations)) {
@@ -110,9 +102,6 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
         return $this->aggregations;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSuggests()
     {
         if (!isset($this->suggests)) {
@@ -150,9 +139,9 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
      * @param int $offset
      * @param int $itemCountPerPage
      *
-     * @throws \InvalidArgumentException
-     *
      * @return ResultSet
+     *
+     * @throws \InvalidArgumentException
      */
     protected function getElasticaResults($offset, $itemCountPerPage)
     {
@@ -167,7 +156,7 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
         }
 
         if ($itemCountPerPage < 1) {
-            throw new InvalidArgumentException('$itemCountPerPage must be greater than zero');
+            throw new \InvalidArgumentException('$itemCountPerPage must be greater than zero');
         }
 
         $query = clone $this->query;

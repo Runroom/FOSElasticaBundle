@@ -236,6 +236,11 @@ class ResetterTest extends TestCase
         $this->resetter->switchIndexAlias('index');
     }
 
+    public function testResetterImplementsResetterInterface()
+    {
+        $this->assertInstanceOf(ResetterInterface::class, $this->resetter);
+    }
+
     private function dispatcherExpects(array $events)
     {
         $expectation = $this->dispatcher->expects($this->exactly(count($events)))
@@ -295,10 +300,5 @@ class ResetterTest extends TestCase
             ->willReturn($mapping);
 
         return $index;
-    }
-
-    public function testResetterImplementsResetterInterface()
-    {
-        $this->assertInstanceOf(ResetterInterface::class, $this->resetter);
     }
 }

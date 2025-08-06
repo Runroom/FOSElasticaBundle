@@ -30,8 +30,6 @@ class TypeConfig
 
     /**
      * @param string $name
-     * @param array  $mapping
-     * @param array  $config
      */
     public function __construct($name, array $mapping, array $config = [])
     {
@@ -109,7 +107,7 @@ class TypeConfig
     /**
      * @param string $key
      *
-     * @return null|string
+     * @return string|null
      */
     private function getConfig($key)
     {

@@ -21,7 +21,7 @@ use Pagerfanta\Pagerfanta;
 
 final class ORMPagerProvider implements PagerProviderInterface
 {
-    const ENTITY_ALIAS = 'a';
+    public const ENTITY_ALIAS = 'a';
 
     /**
      * @var string
@@ -44,10 +44,7 @@ final class ORMPagerProvider implements PagerProviderInterface
     private $registerListenersService;
 
     /**
-     * @param ManagerRegistry $doctrine
-     * @param RegisterListenersService $registerListenersService
      * @param string $objectClass
-     * @param array $baseOptions
      */
     public function __construct(ManagerRegistry $doctrine, RegisterListenersService $registerListenersService, $objectClass, array $baseOptions)
     {
@@ -57,10 +54,7 @@ final class ORMPagerProvider implements PagerProviderInterface
         $this->registerListenersService = $registerListenersService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function provide(array $options = array())
+    public function provide(array $options = [])
     {
         $options = array_replace($this->baseOptions, $options);
 

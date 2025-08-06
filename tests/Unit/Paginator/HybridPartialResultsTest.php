@@ -11,8 +11,8 @@
 
 namespace FOS\ElasticaBundle\Tests\Unit\Event;
 
-use FOS\ElasticaBundle\Paginator\HybridPartialResults;
 use Elastica\ResultSet;
+use FOS\ElasticaBundle\Paginator\HybridPartialResults;
 use FOS\ElasticaBundle\Tests\Unit\UnitTestHelper;
 
 class HybridPartialResultsTest extends UnitTestHelper

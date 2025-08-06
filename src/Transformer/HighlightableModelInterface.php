@@ -18,8 +18,6 @@ interface HighlightableModelInterface
 {
     /**
      * Returns a unique identifier for the model.
-     *
-     * @return mixed
      */
     public function getId();
 

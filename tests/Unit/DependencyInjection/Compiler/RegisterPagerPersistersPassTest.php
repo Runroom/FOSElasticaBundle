@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use FOS\ElasticaBundle\DependencyInjection\Compiler\RegisterPagerPersistersPass;
@@ -7,8 +16,8 @@ use FOS\ElasticaBundle\Persister\PagerPersisterInterface;
 use FOS\ElasticaBundle\Persister\PagerPersisterRegistry;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 class RegisterPagerPersistersPassTest extends TestCase
 {
@@ -128,11 +137,9 @@ class RegisterPagerPersistersPassTest extends TestCase
     }
 
     /**
-     * @param array $attributes
-     * 
      * @return Definition
      */
-    private function createPagerPersisterDefinition(array $attributes = array())
+    private function createPagerPersisterDefinition(array $attributes = [])
     {
         $definition = new Definition(PagerPersisterInterface::class);
         $definition->addTag('fos_elastica.pager_persister', $attributes);

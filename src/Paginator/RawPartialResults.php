@@ -21,17 +21,11 @@ class RawPartialResults implements PartialResultsInterface
 {
     protected $resultSet;
 
-    /**
-     * @param ResultSet $resultSet
-     */
     public function __construct(ResultSet $resultSet)
     {
         $this->resultSet = $resultSet;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         return array_map(function (Result $result) {
@@ -39,25 +33,16 @@ class RawPartialResults implements PartialResultsInterface
         }, $this->resultSet->getResults());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTotalHits(): int
     {
         return $this->resultSet->getTotalHits();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAggregations(): array
     {
         return $this->resultSet->getAggregations();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSuggests()
     {
         if ($this->resultSet->hasSuggests()) {

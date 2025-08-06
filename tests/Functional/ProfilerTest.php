@@ -22,8 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 /**
@@ -45,8 +45,8 @@ class ProfilerTest extends WebTestCase
         $this->logger = new ElasticaLogger($this->createMock(LoggerInterface::class), true);
         $this->collector = new ElasticaDataCollector($this->logger);
 
-        $twigLoaderFilesystem = new FilesystemLoader(__DIR__ . '/../../src/Resources/views/Collector');
-        $twigLoaderFilesystem->addPath(__DIR__ . '/../../vendor/symfony/web-profiler-bundle/Resources/views', 'WebProfiler');
+        $twigLoaderFilesystem = new FilesystemLoader(__DIR__.'/../../src/Resources/views/Collector');
+        $twigLoaderFilesystem->addPath(__DIR__.'/../../vendor/symfony/web-profiler-bundle/Resources/views', 'WebProfiler');
         $this->twig = new Environment($twigLoaderFilesystem, ['debug' => true, 'strict_variables' => true]);
 
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
@@ -86,7 +86,7 @@ class ProfilerTest extends WebTestCase
             'profile_type' => 'request',
         ]);
 
-        $output = str_replace("&quot;", '"', $output);
+        $output = str_replace('&quot;', '"', $output);
 
         $this->assertStringContainsString('{"query":{"match_all":', $output);
         $this->assertStringContainsString('index/_search', $output);

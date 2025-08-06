@@ -17,9 +17,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class RegisterPagerProvidersPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('fos_elastica.pager_provider_registry')) {
@@ -40,13 +37,7 @@ final class RegisterPagerProvidersPass implements CompilerPassInterface
                 $type = $attribute['type'];
 
                 if (isset($registeredProviders[$index][$type])) {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Cannot register provider "%s". The provider "%s" has been registered for same index "%s" and type "%s"',
-                        $id,
-                        $registeredProviders[$index][$type],
-                        $index,
-                        $type
-                    ));
+                    throw new \InvalidArgumentException(sprintf('Cannot register provider "%s". The provider "%s" has been registered for same index "%s" and type "%s"', $id, $registeredProviders[$index][$type], $index, $type));
                 }
 
                 $providerDef = $container->getDefinition($id);
@@ -68,9 +59,6 @@ final class RegisterPagerProvidersPass implements CompilerPassInterface
     }
 
     /**
-     * @param $providerId
-     * @param $providerClass
-     *
      * @throws \InvalidArgumentException if provider service does not implement PagerProviderInterface
      */
     private function assertClassImplementsPagerProviderInterface($providerId, $providerClass)
@@ -78,12 +66,7 @@ final class RegisterPagerProvidersPass implements CompilerPassInterface
         $rc = new \ReflectionClass($providerClass);
 
         if (!$rc->implementsInterface(PagerProviderInterface::class)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Elastica provider "%s" with class "%s" must implement "%s".',
-                $providerId,
-                $providerClass,
-                PagerProviderInterface::class
-            ));
+            throw new \InvalidArgumentException(sprintf('Elastica provider "%s" with class "%s" must implement "%s".', $providerId, $providerClass, PagerProviderInterface::class));
         }
     }
 }

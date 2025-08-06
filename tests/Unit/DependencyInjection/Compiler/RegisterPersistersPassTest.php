@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use FOS\ElasticaBundle\DependencyInjection\Compiler\RegisterPersistersPass;
@@ -7,8 +16,8 @@ use FOS\ElasticaBundle\Persister\ObjectPersisterInterface;
 use FOS\ElasticaBundle\Persister\PersisterRegistry;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 class RegisterPersistersPassTest extends TestCase
 {
@@ -29,9 +38,9 @@ class RegisterPersistersPassTest extends TestCase
         $container = new ContainerBuilder();
         $pass = new RegisterPersistersPass();
 
-        $container->setDefinition('foo_persister', $this->createPersisterDefinition(array('type' => 'a')));
-        $container->setDefinition('bar_persister', $this->createPersisterDefinition(array('index' => 'foo', 'type' => 'b')));
-        $container->setDefinition('baz_persister', $this->createPersisterDefinition(array('index' => 'bar', 'type' => 'a')));
+        $container->setDefinition('foo_persister', $this->createPersisterDefinition(['type' => 'a']));
+        $container->setDefinition('bar_persister', $this->createPersisterDefinition(['index' => 'foo', 'type' => 'b']));
+        $container->setDefinition('baz_persister', $this->createPersisterDefinition(['index' => 'bar', 'type' => 'a']));
 
         $pass->process($container);
     }
@@ -47,9 +56,9 @@ class RegisterPersistersPassTest extends TestCase
         $container->setParameter('fos_elastica.default_index', 'foo');
         $container->setDefinition('fos_elastica.persister_registry', $registry);
 
-        $container->setDefinition('foo_persister', $this->createPersisterDefinition(array('type' => 'a')));
-        $container->setDefinition('bar_persister', $this->createPersisterDefinition(array('index' => 'foo', 'type' => 'b')));
-        $container->setDefinition('baz_persister', $this->createPersisterDefinition(array('index' => 'bar', 'type' => 'a')));
+        $container->setDefinition('foo_persister', $this->createPersisterDefinition(['type' => 'a']));
+        $container->setDefinition('bar_persister', $this->createPersisterDefinition(['index' => 'foo', 'type' => 'b']));
+        $container->setDefinition('baz_persister', $this->createPersisterDefinition(['index' => 'bar', 'type' => 'a']));
 
         $pass->process($container);
 
@@ -59,7 +68,7 @@ class RegisterPersistersPassTest extends TestCase
                 'b' => 'bar_persister',
             ],
             'bar' => [
-                'a' => 'baz_persister'
+                'a' => 'baz_persister',
             ],
         ], $registry->getArgument(0));
     }
@@ -139,11 +148,9 @@ class RegisterPersistersPassTest extends TestCase
     }
 
     /**
-     * @param array $attributes
-     * 
      * @return Definition
      */
-    private function createPersisterDefinition(array $attributes = array())
+    private function createPersisterDefinition(array $attributes = [])
     {
         $definition = new Definition(ObjectPersisterInterface::class);
         $definition->addTag('fos_elastica.persister', $attributes);

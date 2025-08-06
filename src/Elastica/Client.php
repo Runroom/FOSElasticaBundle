@@ -37,7 +37,7 @@ class Client extends BaseClient
      *
      * @var array
      */
-    private $indexTemplateCache = array();
+    private $indexTemplateCache = [];
 
     /**
      * Symfony's debugging Stopwatch.
@@ -46,9 +46,6 @@ class Client extends BaseClient
      */
     private $stopwatch;
 
-    /**
-     * {@inheritdoc}
-     */
     public function request($path, $method = Request::GET, $data = [], array $query = [], $contentType = Request::DEFAULT_CONTENT_TYPE)
     {
         if ($this->stopwatch) {
@@ -106,10 +103,8 @@ class Client extends BaseClient
 
     /**
      * Sets a stopwatch instance for debugging purposes.
-     *
-     * @param Stopwatch $stopwatch
      */
-    public function setStopwatch(Stopwatch $stopwatch = null)
+    public function setStopwatch(?Stopwatch $stopwatch = null)
     {
         $this->stopwatch = $stopwatch;
     }
@@ -117,13 +112,12 @@ class Client extends BaseClient
     /**
      * Log the query if we have an instance of ElasticaLogger.
      *
-     * @param string $path
-     * @param string $method
+     * @param string       $path
+     * @param string       $method
      * @param array|string $data
-     * @param array  $query
-     * @param int    $queryTime
-     * @param int    $engineMS
-     * @param int    $itemCount
+     * @param int          $queryTime
+     * @param int          $engineMS
+     * @param int          $itemCount
      */
     private function logQuery($path, $method, $data, array $query, $queryTime, $engineMS = 0, $itemCount = 0)
     {

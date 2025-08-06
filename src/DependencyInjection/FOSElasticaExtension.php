@@ -44,7 +44,7 @@ class FOSElasticaExtension extends Extension
      *
      * @var array
      */
-    private $indexTemplateConfigs = array();
+    private $indexTemplateConfigs = [];
 
     /**
      * If we've encountered a type mapped to a specific persistence driver, it will be loaded
@@ -99,12 +99,7 @@ class FOSElasticaExtension extends Extension
         $container->setParameter('fos_elastica.default_index', $config['default_index']);
 
         if ($usedIndexNames = \array_intersect_key($config['indexes'], $config['index_templates'])) {
-            throw new \DomainException(
-                \sprintf(
-                    'Index names "%s" are already in use and can not be used for index templates names',
-                    \implode('","', \array_keys($usedIndexNames))
-                )
-            );
+            throw new \DomainException(\sprintf('Index names "%s" are already in use and can not be used for index templates names', \implode('","', \array_keys($usedIndexNames))));
         }
         $this->loadIndexTemplates($config['index_templates'], $container);
 
@@ -120,9 +115,6 @@ class FOSElasticaExtension extends Extension
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     *
      * @return Configuration
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
@@ -169,9 +161,9 @@ class FOSElasticaExtension extends Extension
      * @param array            $indexes   An array of indexes configurations
      * @param ContainerBuilder $container A ContainerBuilder instance
      *
-     * @throws \InvalidArgumentException
-     *
      * @return array
+     *
+     * @throws \InvalidArgumentException
      */
     private function loadIndexes(array $indexes, ContainerBuilder $container)
     {
@@ -220,16 +212,16 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads the configured indexes.
      *
-     * @param array            $indexTemplates   An array of indexes configurations
-     * @param ContainerBuilder $container A ContainerBuilder instance
-     *
-     * @throws \InvalidArgumentException
+     * @param array            $indexTemplates An array of indexes configurations
+     * @param ContainerBuilder $container      A ContainerBuilder instance
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     private function loadIndexTemplates(array $indexTemplates, ContainerBuilder $container)
     {
-        $indexableCallbacks = array();
+        $indexableCallbacks = [];
         foreach ($indexTemplates as $name => $indexTemplate) {
             $indexId = sprintf('fos_elastica.index_template.%s', $name);
             $indexTemplateName = isset($indexTemplate['template_name']) ? $indexTemplate['template_name'] : $name;
@@ -237,9 +229,9 @@ class FOSElasticaExtension extends Extension
             $indexDef = new ChildDefinition('fos_elastica.index_template_prototype');
             $indexDef->setFactory([new Reference('fos_elastica.client'), 'getIndexTemplate']);
             $indexDef->replaceArgument(0, $indexTemplateName);
-            $indexDef->addTag('fos_elastica.index_template', array(
+            $indexDef->addTag('fos_elastica.index_template', [
                 'name' => $name,
-            ));
+            ]);
 
             if (isset($indexTemplate['client'])) {
                 $client = $this->getClient($indexTemplate['client']);
@@ -249,13 +241,13 @@ class FOSElasticaExtension extends Extension
             $container->setDefinition($indexId, $indexDef);
             $reference = new Reference($indexId);
 
-            $this->indexTemplateConfigs[$name] = array(
+            $this->indexTemplateConfigs[$name] = [
                 'elasticsearch_name' => $indexTemplateName,
                 'reference' => $reference,
                 'name' => $name,
                 'settings' => $indexTemplate['settings'],
                 'template' => $indexTemplate['template'],
-            );
+            ];
 
             $this->loadTypes(
                 (array) $indexTemplate['types'],
@@ -273,9 +265,8 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads the configured index finders.
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param string                                                  $name      The index name
-     * @param Reference                                               $index     Reference to the related index
+     * @param string    $name  The index name
+     * @param Reference $index Reference to the related index
      *
      * @return string
      */
@@ -298,11 +289,6 @@ class FOSElasticaExtension extends Extension
 
     /**
      * Loads the configured types.
-     *
-     * @param array            $types
-     * @param ContainerBuilder $container
-     * @param array            $indexConfig
-     * @param array            $indexableCallbacks
      */
     private function loadTypes(array $types, ContainerBuilder $container, array &$indexConfig, array &$indexableCallbacks)
     {
@@ -424,11 +410,8 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads the optional provider and finder for a type.
      *
-     * @param array            $typeConfig
-     * @param ContainerBuilder $container
-     * @param Reference        $typeRef
-     * @param string           $indexName
-     * @param string           $typeName
+     * @param string $indexName
+     * @param string $typeName
      */
     private function loadTypePersistenceIntegration(array $typeConfig, ContainerBuilder $container, Reference $typeRef, $indexName, $typeName)
     {
@@ -454,10 +437,8 @@ class FOSElasticaExtension extends Extension
     /**
      * Creates and loads an ElasticaToModelTransformer.
      *
-     * @param array            $typeConfig
-     * @param ContainerBuilder $container
-     * @param string           $indexName
-     * @param string           $typeName
+     * @param string $indexName
+     * @param string $typeName
      *
      * @return string
      */
@@ -487,10 +468,8 @@ class FOSElasticaExtension extends Extension
     /**
      * Creates and loads a ModelToElasticaTransformer for an index/type.
      *
-     * @param array            $typeConfig
-     * @param ContainerBuilder $container
-     * @param string           $indexName
-     * @param string           $typeName
+     * @param string $indexName
+     * @param string $typeName
      *
      * @return string
      */
@@ -518,12 +497,9 @@ class FOSElasticaExtension extends Extension
     /**
      * Creates and loads an object persister for a type.
      *
-     * @param array            $typeConfig
-     * @param Reference        $typeRef
-     * @param ContainerBuilder $container
-     * @param string           $indexName
-     * @param string           $typeName
-     * @param string           $transformerId
+     * @param string $indexName
+     * @param string $typeName
+     * @param string $transformerId
      *
      * @return string
      */
@@ -572,10 +548,8 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads a pager provider for a type.
      *
-     * @param array            $typeConfig
-     * @param ContainerBuilder $container
-     * @param string           $indexName
-     * @param string           $typeName
+     * @param string $indexName
+     * @param string $typeName
      *
      * @return string
      */
@@ -628,11 +602,9 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads doctrine listeners to handle indexing of new or updated objects.
      *
-     * @param array            $typeConfig
-     * @param ContainerBuilder $container
-     * @param string           $objectPersisterId
-     * @param string           $indexName
-     * @param string           $typeName
+     * @param string $objectPersisterId
+     * @param string $indexName
+     * @param string $typeName
      *
      * @return string
      */
@@ -737,12 +709,9 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads a Type specific Finder.
      *
-     * @param array            $typeConfig
-     * @param ContainerBuilder $container
-     * @param string           $elasticaToModelId
-     * @param Reference        $typeRef
-     * @param string           $indexName
-     * @param string           $typeName
+     * @param string $elasticaToModelId
+     * @param string $indexName
+     * @param string $typeName
      *
      * @return string
      */
@@ -777,7 +746,6 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads the index manager.
      *
-     * @param ContainerBuilder $container
      **/
     private function loadIndexManager(ContainerBuilder $container)
     {
@@ -790,9 +758,7 @@ class FOSElasticaExtension extends Extension
     }
 
     /**
-     * Load index template manager
-     *
-     * @param ContainerBuilder $container
+     * Load index template manager.
      *
      * @return void
      */
@@ -809,8 +775,7 @@ class FOSElasticaExtension extends Extension
     /**
      * Makes sure a specific driver has been loaded.
      *
-     * @param ContainerBuilder $container
-     * @param string           $driver
+     * @param string $driver
      */
     private function loadDriver(ContainerBuilder $container, $driver)
     {
@@ -826,8 +791,7 @@ class FOSElasticaExtension extends Extension
     /**
      * Loads and configures the serializer prototype.
      *
-     * @param array            $config
-     * @param ContainerBuilder $container
+     * @param array $config
      */
     private function loadSerializer($config, ContainerBuilder $container)
     {
@@ -844,8 +808,7 @@ class FOSElasticaExtension extends Extension
     /**
      * Creates a default manager alias for defined default manager or the first loaded driver.
      *
-     * @param string           $defaultManager
-     * @param ContainerBuilder $container
+     * @param string $defaultManager
      */
     private function createDefaultManagerAlias($defaultManager, ContainerBuilder $container)
     {

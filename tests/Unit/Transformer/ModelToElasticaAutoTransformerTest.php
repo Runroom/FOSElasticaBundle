@@ -33,7 +33,7 @@ class POPO3
     public $fileContents;
 
     /**
-     * test non-accessible private property
+     * test non-accessible private property.
      */
     private $desc = 'desc';
 
@@ -223,12 +223,12 @@ class ModelToElasticaAutoTransformerTest extends TestCase
         $transformer = $this->getTransformer();
         $document = $transformer->transform(
             new POPO3(), [
-                             'name' => [],
-                             'float' => [],
-                             'bool' => [],
-                             'date' => [],
-                             'falseBool' => [],
-                        ]
+                'name' => [],
+                'float' => [],
+                'bool' => [],
+                'date' => [],
+                'falseBool' => [],
+            ]
         );
         $data = $document->getData();
 
@@ -259,8 +259,8 @@ class ModelToElasticaAutoTransformerTest extends TestCase
 
         $this->assertSame(
             [
-                 'key1' => 'value1',
-                 'key2' => 'value2',
+                'key1' => 'value1',
+                'key2' => 'value2',
             ], $data['array']
         );
     }
@@ -275,8 +275,8 @@ class ModelToElasticaAutoTransformerTest extends TestCase
 
         $this->assertSame(
             [
-                 'key1' => 'value1',
-                 'key2' => ['value2', false, 123, 8.9, $expectedDate->format('c')],
+                'key1' => 'value1',
+                'key2' => ['value2', false, 123, 8.9, $expectedDate->format('c')],
             ], $data['multiArray']
         );
     }
@@ -333,47 +333,47 @@ class ModelToElasticaAutoTransformerTest extends TestCase
         $this->assertTrue(array_key_exists('sub', $data));
         $this->assertIsArray($data['sub']);
         $this->assertSame([
-             ['foo' => 'foo'],
-             ['foo' => 'bar'],
-           ], $data['sub']);
+            ['foo' => 'foo'],
+            ['foo' => 'bar'],
+        ], $data['sub']);
     }
 
     public function tesObjectMapping()
     {
         $transformer = $this->getTransformer();
         $document = $transformer->transform(new POPO3(), [
-                'sub' => [
-                    'type' => 'object',
-                    'properties' => ['bar'],
-                    ],
-                ]);
+            'sub' => [
+                'type' => 'object',
+                'properties' => ['bar'],
+            ],
+        ]);
         $data = $document->getData();
 
         $this->assertTrue(array_key_exists('sub', $data));
         $this->assertIsArray($data['sub']);
         $this->assertSame([
-             ['bar' => 'foo'],
-             ['bar' => 'bar'],
-           ], $data['sub']);
+            ['bar' => 'foo'],
+            ['bar' => 'bar'],
+        ], $data['sub']);
     }
 
     public function testObjectDoesNotRequireProperties()
     {
         $transformer = $this->getTransformer();
         $document = $transformer->transform(new POPO3(), [
-                'obj' => [
-                    'type' => 'object',
-                    ],
-                ]);
+            'obj' => [
+                'type' => 'object',
+            ],
+        ]);
         $data = $document->getData();
 
         $this->assertTrue(array_key_exists('obj', $data));
         $this->assertIsArray($data['obj']);
         $this->assertSame([
-             'foo' => 'foo',
-             'bar' => 'foo',
-             'id' => 1,
-       ], $data['obj']);
+            'foo' => 'foo',
+            'bar' => 'foo',
+            'id' => 1,
+        ], $data['obj']);
     }
 
     public function testObjectsMappingOfAtLeastOneAutoMappedObjectAndAtLeastOneManuallyMappedObject()
@@ -555,7 +555,7 @@ class ModelToElasticaAutoTransformerTest extends TestCase
 
     public function testIdentifierIsCastedToString()
     {
-        $idObject = new CastableObject();;
+        $idObject = new CastableObject();
         $idObject->foo = '00000000-0000-0000-0000-000000000000';
 
         $object = new \stdClass();
@@ -568,7 +568,7 @@ class ModelToElasticaAutoTransformerTest extends TestCase
     }
 
     /**
-     * @param null|LegacyEventDispatcherInterface|EventDispatcherInterface $dispatcher
+     * @param LegacyEventDispatcherInterface|EventDispatcherInterface|null $dispatcher
      *
      * @return ModelToElasticaAutoTransformer
      */

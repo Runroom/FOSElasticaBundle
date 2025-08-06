@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use FOS\ElasticaBundle\DependencyInjection\Compiler\RegisterPagerProvidersPass;
@@ -7,8 +16,8 @@ use FOS\ElasticaBundle\Provider\PagerProviderInterface;
 use FOS\ElasticaBundle\Provider\PagerProviderRegistry;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 class RegisterPagerProvidersPassTest extends TestCase
 {
@@ -29,9 +38,9 @@ class RegisterPagerProvidersPassTest extends TestCase
         $container = new ContainerBuilder();
         $pass = new RegisterPagerProvidersPass();
 
-        $container->setDefinition('foo_provider', $this->createProviderDefinition(array('type' => 'a')));
-        $container->setDefinition('bar_provider', $this->createProviderDefinition(array('index' => 'foo', 'type' => 'b')));
-        $container->setDefinition('baz_provider', $this->createProviderDefinition(array('index' => 'bar', 'type' => 'a')));
+        $container->setDefinition('foo_provider', $this->createProviderDefinition(['type' => 'a']));
+        $container->setDefinition('bar_provider', $this->createProviderDefinition(['index' => 'foo', 'type' => 'b']));
+        $container->setDefinition('baz_provider', $this->createProviderDefinition(['index' => 'bar', 'type' => 'a']));
 
         $pass->process($container);
     }
@@ -47,9 +56,9 @@ class RegisterPagerProvidersPassTest extends TestCase
         $container->setParameter('fos_elastica.default_index', 'foo');
         $container->setDefinition('fos_elastica.pager_provider_registry', $registry);
 
-        $container->setDefinition('foo_provider', $this->createProviderDefinition(array('type' => 'a')));
-        $container->setDefinition('bar_provider', $this->createProviderDefinition(array('index' => 'foo', 'type' => 'b')));
-        $container->setDefinition('baz_provider', $this->createProviderDefinition(array('index' => 'bar', 'type' => 'a')));
+        $container->setDefinition('foo_provider', $this->createProviderDefinition(['type' => 'a']));
+        $container->setDefinition('bar_provider', $this->createProviderDefinition(['index' => 'foo', 'type' => 'b']));
+        $container->setDefinition('baz_provider', $this->createProviderDefinition(['index' => 'bar', 'type' => 'a']));
 
         $pass->process($container);
 
@@ -59,7 +68,7 @@ class RegisterPagerProvidersPassTest extends TestCase
                 'b' => 'bar_provider',
             ],
             'bar' => [
-                'a' => 'baz_provider'
+                'a' => 'baz_provider',
             ],
         ], $registry->getArgument(0));
     }
@@ -139,11 +148,9 @@ class RegisterPagerProvidersPassTest extends TestCase
     }
 
     /**
-     * @param array $attributes
-     * 
      * @return Definition
      */
-    private function createProviderDefinition(array $attributes = array())
+    private function createProviderDefinition(array $attributes = [])
     {
         $definition = new Definition(PagerProviderInterface::class);
         $definition->addTag('fos_elastica.pager_provider', $attributes);

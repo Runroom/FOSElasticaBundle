@@ -1,9 +1,9 @@
 <?php
 
-/**
- * This file is part of the FOSElasticaBundle project.
+/*
+ * This file is part of the FOSElasticaBundle package.
  *
- * (c) Tim Nagel <tim@nagel.com.au>
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -38,14 +38,14 @@ class TemplateContainerSource implements SourceInterface
      */
     public function getConfiguration()
     {
-        $indexes = array();
+        $indexes = [];
         foreach ($this->configArray as $config) {
             $types = $this->getTypes($config);
-            $index = new IndexTemplateConfig($config['name'], $types, array(
+            $index = new IndexTemplateConfig($config['name'], $types, [
                 'elasticSearchName' => $config['elasticsearch_name'],
                 'settings' => $config['settings'],
                 'template' => $config['template'],
-            ));
+            ]);
 
             $indexes[$config['name']] = $index;
         }
@@ -62,7 +62,7 @@ class TemplateContainerSource implements SourceInterface
      */
     protected function getTypes($config)
     {
-        $types = array();
+        $types = [];
 
         if (isset($config['types'])) {
             foreach ($config['types'] as $typeConfig) {

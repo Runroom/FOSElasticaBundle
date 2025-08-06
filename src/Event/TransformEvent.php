@@ -17,18 +17,18 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 if (!class_exists(Event::class)) {
     /**
-     * Symfony 3.4
+     * Symfony 3.4.
      */
     class TransformEvent extends LegacyEvent
     {
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TransformEvent")
          */
-        const PRE_TRANSFORM = 'fos_elastica.pre_transform';
+        public const PRE_TRANSFORM = 'fos_elastica.pre_transform';
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\TransformEvent")
          */
-        const POST_TRANSFORM = 'fos_elastica.post_transform';
+        public const POST_TRANSFORM = 'fos_elastica.post_transform';
         /**
          * @var Document
          */
@@ -43,8 +43,6 @@ if (!class_exists(Event::class)) {
         private $object;
 
         /**
-         * @param mixed  $document
-         * @param array  $fields
          * @param object $object
          */
         public function __construct($document, array $fields, $object)
@@ -88,18 +86,18 @@ if (!class_exists(Event::class)) {
     }
 } else {
     /**
-     * Symfony >= 4.3
+     * Symfony >= 4.3.
      */
     class TransformEvent extends Event
     {
         /**
          * @Event("FOS\ElasticaBundle\Event\TransformEvent")
          */
-        const PRE_TRANSFORM = 'fos_elastica.pre_transform';
+        public const PRE_TRANSFORM = 'fos_elastica.pre_transform';
         /**
          * @Event("FOS\ElasticaBundle\Event\TransformEvent")
          */
-        const POST_TRANSFORM = 'fos_elastica.post_transform';
+        public const POST_TRANSFORM = 'fos_elastica.post_transform';
         /**
          * @var Document
          */
@@ -114,8 +112,6 @@ if (!class_exists(Event::class)) {
         private $object;
 
         /**
-         * @param mixed  $document
-         * @param array  $fields
          * @param object $object
          */
         public function __construct($document, array $fields, $object)

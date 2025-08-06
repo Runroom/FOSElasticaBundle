@@ -14,9 +14,9 @@ namespace FOS\ElasticaBundle\Transformer;
 use Elastica\Document;
 use FOS\ElasticaBundle\Event\TransformEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as LegacyEventDispatcherInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Maps Elastica documents with Doctrine objects
@@ -50,7 +50,6 @@ class ModelToElasticaAutoTransformer implements ModelToElasticaTransformerInterf
     /**
      * Instanciates a new Mapper.
      *
-     * @param array                                                   $options
      * @param EventDispatcherInterface|LegacyEventDispatcherInterface $dispatcher
      */
     public function __construct(array $options = [], /* EventDispatcherInterface */ $dispatcher = null)
@@ -65,8 +64,6 @@ class ModelToElasticaAutoTransformer implements ModelToElasticaTransformerInterf
 
     /**
      * Set the PropertyAccessor.
-     *
-     * @param PropertyAccessorInterface $propertyAccessor
      */
     public function setPropertyAccessor(PropertyAccessorInterface $propertyAccessor)
     {
@@ -120,8 +117,6 @@ class ModelToElasticaAutoTransformer implements ModelToElasticaTransformerInterf
 
     /**
      * Attempts to convert any type to a string or an array of strings.
-     *
-     * @param mixed $value
      *
      * @return string|array
      */
@@ -183,8 +178,8 @@ class ModelToElasticaAutoTransformer implements ModelToElasticaTransformerInterf
             $value = $this->propertyAccessor->getValue($object, $path);
 
             if (isset($mapping['type']) && in_array(
-                    $mapping['type'], ['nested', 'object']
-                ) && isset($mapping['properties']) && !empty($mapping['properties'])
+                $mapping['type'], ['nested', 'object']
+            ) && isset($mapping['properties']) && !empty($mapping['properties'])
             ) {
                 /* $value is a nested document or object. Transform $value into
                  * an array of documents, respective the mapped properties.

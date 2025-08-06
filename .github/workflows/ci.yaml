@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['7.4', '8.1', '8.2', '8.3']
+        php: ['7.4', '8.1', '8.2', '8.3', '8.4']
         dependencies: [highest]
         symfony-require: [highest]
         elasticsearch: ['5.6-alpine']
@@ -20,15 +20,15 @@ jobs:
             dependencies: lowest
             symfony-require: highest
             elasticsearch: 5.6-alpine
-          - php: '8.3'
+          - php: '8.4'
             dependencies: highest
             symfony-require: 4.4.*
             elasticsearch: 5.6-alpine
-          - php: '8.3'
+          - php: '8.4'
             dependencies: highest
             symfony-require: 5.4.*
             elasticsearch: 5.6-alpine
-          - php: '8.3'
+          - php: '8.4'
             dependencies: highest
             symfony-require: 6.4.*
             elasticsearch: 5.6-alpine

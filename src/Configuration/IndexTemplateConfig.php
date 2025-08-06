@@ -1,9 +1,18 @@
 <?php
 
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Configuration;
 
 /**
- * Index template configuration class
+ * Index template configuration class.
  *
  * @author Dmitry Balabka <dmitry.balabka@intexsys.lv>
  */
@@ -12,7 +21,7 @@ class IndexTemplateConfig implements IndexConfigInterface
     use IndexConfigTrait;
 
     /**
-     * Index name pattern
+     * Index name pattern.
      *
      * @var string
      */
@@ -23,13 +32,12 @@ class IndexTemplateConfig implements IndexConfigInterface
      *
      * @param string       $name
      * @param TypeConfig[] $types
-     * @param array        $config
      */
     public function __construct($name, array $types, array $config)
     {
         $this->elasticSearchName = $config['elasticSearchName'] ?? $name;
         $this->name = $name;
-        $this->settings = $config['settings'] ?? array();
+        $this->settings = $config['settings'] ?? [];
 
         if (!isset($config['template'])) {
             throw new \InvalidArgumentException('Index template value must be set');
@@ -40,7 +48,7 @@ class IndexTemplateConfig implements IndexConfigInterface
     }
 
     /**
-     * Gets index name pattern
+     * Gets index name pattern.
      *
      * @return string
      */

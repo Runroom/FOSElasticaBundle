@@ -25,17 +25,11 @@ class PaginateElasticaQuerySubscriber implements EventSubscriberInterface
      */
     private $requestStack;
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * @param ItemsEvent $event
-     */
     public function items(ItemsEvent $event)
     {
         if ($event->target instanceof PaginatorAdapterInterface) {
@@ -68,8 +62,6 @@ class PaginateElasticaQuerySubscriber implements EventSubscriberInterface
 
     /**
      * Adds knp paging sort to query.
-     *
-     * @param ItemsEvent $event
      */
     protected function setSorting(ItemsEvent $event)
     {
@@ -144,7 +136,6 @@ class PaginateElasticaQuerySubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param string|null $key
      * @return mixed|null
      */
     private function getFromRequest(?string $key)

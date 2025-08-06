@@ -17,7 +17,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    const SUPPORTED_DRIVERS = ['orm', 'mongodb', 'phpcr'];
+    public const SUPPORTED_DRIVERS = ['orm', 'mongodb', 'phpcr'];
 
     /**
      * If the kernel is running in debug mode.
@@ -33,8 +33,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Generates the configuration tree.
-     *
-     * @return TreeBuilder
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
@@ -456,7 +454,7 @@ class Configuration implements ConfigurationInterface
                                         ->arrayNode('http_error_codes')
                                             ->beforeNormalization()
                                                 ->ifTrue(function ($v) { return !is_array($v); })
-                                                ->then(function ($v) { return array($v); })
+                                                ->then(function ($v) { return [$v]; })
                                             ->end()
                                             ->requiresAtLeastOneElement()
                                             ->defaultValue([400, 403, 404])
@@ -559,8 +557,6 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Adds the configuration for the "index_templates" key.
-     *
-     * @param ArrayNodeDefinition $rootNode
      *
      * @return void
      */

@@ -15,8 +15,6 @@ interface PartialResultsInterface
 {
     /**
      * Returns the paginated results.
-     *
-     * @return array
      */
     public function toArray(): array;
 
@@ -29,8 +27,6 @@ interface PartialResultsInterface
 
     /**
      * Returns the aggregations.
-     *
-     * @return array
      */
     public function getAggregations(): array;
 }

@@ -28,14 +28,14 @@ abstract class AbstractElasticaToModelTransformer extends BaseTransformer
      *
      * @var ManagerRegistry
      */
-    protected $registry = null;
+    protected $registry;
 
     /**
      * Class of the model to map to the elastica documents.
      *
      * @var string
      */
-    protected $objectClass = null;
+    protected $objectClass;
 
     /**
      * Optional parameters.
@@ -53,9 +53,7 @@ abstract class AbstractElasticaToModelTransformer extends BaseTransformer
     /**
      * Instantiates a new Mapper.
      *
-     * @param ManagerRegistry $registry
-     * @param string          $objectClass
-     * @param array           $options
+     * @param string $objectClass
      */
     public function __construct(ManagerRegistry $registry, $objectClass, array $options = [])
     {
@@ -80,9 +78,9 @@ abstract class AbstractElasticaToModelTransformer extends BaseTransformer
      *
      * @param array $elasticaObjects of elastica objects
      *
-     * @throws \RuntimeException
-     *
      * @return array
+     *
+     * @throws \RuntimeException
      **/
     public function transform(array $elasticaObjects)
     {
@@ -153,9 +151,6 @@ abstract class AbstractElasticaToModelTransformer extends BaseTransformer
         return $result;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIdentifierField()
     {
         return $this->options['identifier'];

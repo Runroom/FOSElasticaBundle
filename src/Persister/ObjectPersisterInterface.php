@@ -22,8 +22,6 @@ interface ObjectPersisterInterface
     /**
      * Checks if this persister can handle the given object or not.
      *
-     * @param mixed $object
-     *
      * @return bool
      */
     public function handlesObject($object);
@@ -53,7 +51,6 @@ interface ObjectPersisterInterface
     /**
      * Deletes one object in the type by id.
      *
-     * @param mixed       $id
      * @param string|bool $routing
      */
     public function deleteById($id, $routing = false);

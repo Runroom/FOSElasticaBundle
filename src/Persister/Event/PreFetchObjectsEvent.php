@@ -1,4 +1,14 @@
 <?php
+
+/*
+ * This file is part of the FOSElasticaBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\ElasticaBundle\Persister\Event;
 
 use FOS\ElasticaBundle\Event\AbstractEvent;
@@ -53,9 +63,6 @@ final class PreFetchObjectsEvent extends AbstractEvent implements PersistEvent
         return $this->options;
     }
 
-    /**
-     * @param array $options
-     */
     public function setOptions(array $options)
     {
         $this->options = $options;
@@ -69,9 +76,6 @@ final class PreFetchObjectsEvent extends AbstractEvent implements PersistEvent
         return $this->objectPersister;
     }
 
-    /**
-     * @param ObjectPersisterInterface $objectPersister
-     */
     public function setObjectPersister(ObjectPersisterInterface $objectPersister)
     {
         $this->objectPersister = $objectPersister;

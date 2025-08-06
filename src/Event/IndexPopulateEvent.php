@@ -16,7 +16,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 if (!class_exists(Event::class)) {
     /**
-     * Symfony 3.4
+     * Symfony 3.4.
      */
 
     /**
@@ -29,11 +29,11 @@ if (!class_exists(Event::class)) {
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\IndexPopulateEvent")
          */
-        const PRE_INDEX_POPULATE = 'elastica.index.index_pre_populate';
+        public const PRE_INDEX_POPULATE = 'elastica.index.index_pre_populate';
         /**
          * @LegacyEvent("FOS\ElasticaBundle\Event\IndexPopulateEvent")
          */
-        const POST_INDEX_POPULATE = 'elastica.index.index_post_populate';
+        public const POST_INDEX_POPULATE = 'elastica.index.index_post_populate';
         /**
          * @var bool
          */
@@ -83,8 +83,6 @@ if (!class_exists(Event::class)) {
         /**
          * @param string $name
          *
-         * @return mixed
-         *
          * @throws \InvalidArgumentException if option does not exist
          */
         public function getOption($name)
@@ -98,7 +96,6 @@ if (!class_exists(Event::class)) {
 
         /**
          * @param string $name
-         * @param mixed  $value
          */
         public function setOption($name, $value)
         {
@@ -107,7 +104,7 @@ if (!class_exists(Event::class)) {
     }
 } else {
     /**
-     * Symfony >= 4.3
+     * Symfony >= 4.3.
      */
 
     /**
@@ -120,11 +117,11 @@ if (!class_exists(Event::class)) {
         /**
          * @Event("FOS\ElasticaBundle\Event\IndexPopulateEvent")
          */
-        const PRE_INDEX_POPULATE = 'elastica.index.index_pre_populate';
+        public const PRE_INDEX_POPULATE = 'elastica.index.index_pre_populate';
         /**
          * @Event("FOS\ElasticaBundle\Event\IndexPopulateEvent")
          */
-        const POST_INDEX_POPULATE = 'elastica.index.index_post_populate';
+        public const POST_INDEX_POPULATE = 'elastica.index.index_post_populate';
         /**
          * @var bool
          */
@@ -174,8 +171,6 @@ if (!class_exists(Event::class)) {
         /**
          * @param string $name
          *
-         * @return mixed
-         *
          * @throws \InvalidArgumentException if option does not exist
          */
         public function getOption($name)
@@ -189,7 +184,6 @@ if (!class_exists(Event::class)) {
 
         /**
          * @param string $name
-         * @param mixed  $value
          */
         public function setOption($name, $value)
         {

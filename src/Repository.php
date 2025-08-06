@@ -24,16 +24,12 @@ class Repository
     /** @var PaginatedFinderInterface */
     protected $finder;
 
-    /**
-     * @param PaginatedFinderInterface $finder
-     */
     public function __construct(PaginatedFinderInterface $finder)
     {
         $this->finder = $finder;
     }
 
     /**
-     * @param mixed $query
      * @param int   $limit
      * @param array $options
      *
@@ -45,11 +41,8 @@ class Repository
     }
 
     /**
-     * @param mixed $query
      * @param int   $limit
      * @param array $options
-     *
-     * @return mixed
      */
     public function findHybrid($query, $limit = null, $options = [])
     {
@@ -57,7 +50,6 @@ class Repository
     }
 
     /**
-     * @param mixed $query
      * @param array $options
      *
      * @return \Pagerfanta\Pagerfanta
@@ -79,8 +71,6 @@ class Repository
     }
 
     /**
-     * @param mixed $query
-     *
      * @return Paginator\HybridPaginatorAdapter
      */
     public function createHybridPaginatorAdapter($query)
